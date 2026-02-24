@@ -4,6 +4,8 @@ const express = require('express');
 const getPixels = require("get-pixels");
 const { createCanvas } = require('canvas'); // Import the canvas package
 
+console.log("Script starting...");
+
 const app = express();
 const port = 1445;
 
@@ -106,8 +108,8 @@ function loadPixels(w, h, img_url, x, y, z) {
 function createRenderer({ height, width }) {
     const canvas = createCanvas(width, height); // Create a proper canvas object
     // Polyfill for addEventListener and removeEventListener
-    canvas.addEventListener = () => {};
-    canvas.removeEventListener = () => {};
+    canvas.addEventListener = () => { };
+    canvas.removeEventListener = () => { };
 
     const glContext = gl(width, height, { preserveDrawingBuffer: true });
     if (!glContext) {
@@ -115,7 +117,7 @@ function createRenderer({ height, width }) {
         throw new Error(`Unable to create WebGL context with width ${width} and height ${height}`);
     }
     if (!glContext.getShaderPrecisionFormat) {
-        glContext.getShaderPrecisionFormat = function(type, precision) {
+        glContext.getShaderPrecisionFormat = function (type, precision) {
             return { rangeMin: 0, rangeMax: 0, precision: 0 };
         };
     }

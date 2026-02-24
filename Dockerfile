@@ -30,8 +30,10 @@ COPY . .
 # Expose the application port
 EXPOSE 1445
 
-# Set environment variables for xvfb
+# Set environment variables
 ENV DISPLAY=:99
+ENV NODE_ENV=production
 
 # Use xvfb-run to start the application
-CMD ["xvfb-run", "--auto-servernum", "--server-args=-screen 0 1024x768x24", "node", "main.js"]
+# Using shell form to ensure environment variables and signals are handled correctly
+CMD xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" node main.js
